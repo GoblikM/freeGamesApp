@@ -1,0 +1,7 @@
+{
+  "name": "freeGamesApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
