@@ -1,15 +1,18 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>games</ion-title>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>FreeToPlay Games</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-      <ion-card button *ngFor="let item of games[0]">
+      <ion-card color="light" button *ngFor="let item of games[0]" [routerLink]="[item.id]">
         <ion-img [src]="item.thumbnail"></ion-img>
         <ion-card-header>
           <ion-card-title> {{item.title}} ({{item.release_date | date:'y'}}) </ion-card-title>
-          <ion-card-subtitle>{{item.platform}}</ion-card-subtitle>
+          <ion-card-subtitle><ion-text color="warning">{{item.platform}}</ion-text></ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
           {{item.short_description}}

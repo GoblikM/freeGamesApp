@@ -1,9 +1,120 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>gameDetails</ion-title>
+  <ion-toolbar color="warning">
+    <ion-title>{{ game?.title }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/games"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card *ngIf="game">
+    <ion-slides [options]="slideOptions">
+      <ion-slide *ngFor="let img of game.screenshots">
+        <img src="{{img.image}}">
+      </ion-slide>
+    </ion-slides>    <ion-card-header>
+      <ion-card-title class="ion-text-center" style="font-weight: bold;">{{game.title}}</ion-card-title>
+    </ion-card-header>
+      <ion-card-content>
+        <ion-row class="ion-no-padding">
+          <ion-col class="ion-no-padding">
+            <ion-card color="warning">
+              <ion-card-header>
+                <ion-card-title>
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  Release
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-badge color="light">
+                  {{game.release_date}}
 
-</ion-content>
+                </ion-badge>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <ion-card color="warning">
+              <ion-card-header>
+                <ion-card-title>
+                  <ion-icon name="game-controller-outline"></ion-icon>
+                  Platform
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-badge color="light">
+                  {{game.platform}}
+
+                </ion-badge>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-no-padding">
+          <ion-col class="ion-no-padding">
+            <ion-card color="warning">
+              <ion-card-header>
+                <ion-card-title>
+                  <ion-icon name="code-slash-outline"></ion-icon>
+                  Developer
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-badge color="light">
+                  {{game.developer}}
+
+                </ion-badge>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <ion-card color="warning">
+              <ion-card-header>
+                <ion-card-title>
+                  <ion-icon name="paper-plane-outline"></ion-icon>
+                  Publisher
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-badge color="light">
+                  {{game.publisher}}
+                </ion-badge>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>System requirements</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            OS: {{game.minimum_system_requirements.os}}
+          </div>
+          <div class="ion-padding" slot="content">
+            Procesor: {{game.minimum_system_requirements.procesor}}
+          </div>
+          <div class="ion-padding" slot="content">
+            Memory: {{game.minimum_system_requirements.memory}}
+          </div>
+          <div class="ion-padding" slot="content">
+            Graphics: {{game.minimum_system_requirements.graphics}}
+          </div>
+          <div class="ion-padding" slot="content">
+            Storage: {{game.minimum_system_requirements.storage}}
+          </div>
+        </ion-accordion>
+        </ion-accordion-group>
+        <ion-card color="light">
+          <ion-card-content>{{game.description}}</ion-card-content>
+
+        </ion-card>
+
+      </ion-card-content>
+      </ion-card>
+    </ion-content>
+    <ion-footer>
+      <ion-button color="warning" expand="full" (click)="openHomepage()">Visit site</ion-button>
+    </ion-footer>
+

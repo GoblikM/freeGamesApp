@@ -69,7 +69,7 @@ export class GamesService {
      return this.http.get<Game>(url);
   }
 
-  getGameDetails(id: string):Observable<GameDetails>{
+  getGameDetails(id: string|null):Observable<GameDetails>{
     const url = 'https://cors-anywhere.herokuapp.com/'+`${environment.baseUrl}/game?id=${id}`;
     return this.http.get<GameDetails>(url);
 
