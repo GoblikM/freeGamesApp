@@ -75,6 +75,16 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 }
+  /*
+  * changing the colour of slider pager (dots)
+  */
+  ion-slides {
+    .swiper-slide, .swiper-pagination {
+       --bullet-background: #ffd534;
+       --bullet-background-active: #ffd534;
+     }
+  }
+
 
 @media (prefers-color-scheme: dark) {
   /*

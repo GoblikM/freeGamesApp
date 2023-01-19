@@ -12,12 +12,18 @@ export class GameDetailsPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private gamesService: GamesService) { }
 
+  //options for slider
   slideOptions={
     loop: true,
-    autoplay: 2000,
-    pager:true,
+    initialSlide: 0,
+    speed: 400,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    }};
 
-  };
+
+
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
