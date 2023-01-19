@@ -23,8 +23,6 @@ export class GameDetailsPage implements OnInit {
     }};
 
 
-
-
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.gamesService.getGameDetails(id).subscribe(res =>{

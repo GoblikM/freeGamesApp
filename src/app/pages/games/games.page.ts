@@ -72,7 +72,7 @@ export class GamesPage implements OnInit {
 
     this.gamesService.getGames(genre).subscribe(res =>{
       this.games.push(res);
-      loading.dismiss();
+
     });
   }
 
