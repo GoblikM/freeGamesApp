@@ -67,17 +67,27 @@ export class GamesService {
   getGames(genre?:string): Observable<Game>{
     let url;
     if(genre && genre !== 'All'){
-       url ='https://cors-anywhere.herokuapp.com/'+`${environment.baseUrl}/games?category=${genre}`;
+       url =`${environment.baseUrl}/games?category=${genre}`;
     }
     else{
-       url = 'https://cors-anywhere.herokuapp.com/'+`${environment.baseUrl}/games`;
+       url = `${environment.baseUrl}/games`;
     }
-     return this.http.get<Game>(url);
+     return this.http.get<Game>(url,{
+      headers:{
+        'X-RapidAPI-Key': environment.RapidAPIKey,
+        'X-RapidAPI-Host': environment.RapidAPIHost
+      }
+     })
   }
 
   getGameDetails(id: string|null):Observable<GameDetails>{
-    const url = 'https://cors-anywhere.herokuapp.com/'+`${environment.baseUrl}/game?id=${id}`;
-    return this.http.get<GameDetails>(url);
+    const url = `${environment.baseUrl}/game?id=${id}`;
+    return this.http.get<GameDetails>(url,{
+      headers:{
+        'X-RapidAPI-Key': environment.RapidAPIKey,
+        'X-RapidAPI-Host': environment.RapidAPIHost
+      }
+    });
 
   }
 }
