@@ -90,6 +90,7 @@ export class GamesPage implements OnInit {
       this.storageService.saveData('favourites', this.favourites);
        const alert = await this.alertController.create({
          header: 'Success',
+         backdropDismiss: true,
          subHeader: 'Game added to favourites',
          buttons: ['OK'],
        });
@@ -99,7 +100,8 @@ export class GamesPage implements OnInit {
     else{
       const alert = await this.alertController.create({
         header: 'Warning',
-        subHeader: 'Game already added to favourites!',
+        subHeader: 'Game already in favourites!',
+        backdropDismiss: true,
         buttons: ['OK'],
       });
       await alert.present();
