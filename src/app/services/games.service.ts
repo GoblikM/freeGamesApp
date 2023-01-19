@@ -64,8 +64,14 @@ export class GamesService {
   constructor(private http: HttpClient) { }
 
 
-  getGames(): Observable<Game>{
-    const url = 'https://cors-anywhere.herokuapp.com/'+`${environment.baseUrl}/games`;
+  getGames(genre?:string): Observable<Game>{
+    let url;
+    if(genre && genre !== 'All'){
+       url ='https://cors-anywhere.herokuapp.com/'+`${environment.baseUrl}/games?category=${genre}`;
+    }
+    else{
+       url = 'https://cors-anywhere.herokuapp.com/'+`${environment.baseUrl}/games`;
+    }
      return this.http.get<Game>(url);
   }
 

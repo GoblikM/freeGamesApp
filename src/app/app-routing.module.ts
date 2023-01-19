@@ -14,7 +14,8 @@ const routes: Routes = [
   {
     path: 'games/:id', //changed from game-details to parameterised route using :id
     loadChildren: () => import('./pages/game-details/game-details.module').then( m => m.GameDetailsPageModule)
-  },  {
+  },
+  {
     path: 'favourites',
     loadChildren: () => import('./pages/favourites/favourites.module').then( m => m.FavouritesPageModule)
   },

@@ -8,6 +8,19 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-select (ionChange)="genreSelect($event)" interface="popover" placeholder="Select Category">
+        <ion-select-option value="All">All</ion-select-option>
+        <ion-select-option value="mmorpg">MMORPG</ion-select-option>
+        <ion-select-option value="shooter">shooter</ion-select-option>
+        <ion-select-option value="strategy">strategy</ion-select-option>
+        <ion-select-option value="racing">racing</ion-select-option>
+        <ion-select-option value="sports">sports</ion-select-option>
+        <ion-select-option value="sci-fi">sci-fi</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
       <ion-card color="light"  *ngFor="let game of games[0]">
         <ion-img button [src]="game.thumbnail" [routerLink]="[game.id]"></ion-img>
         <ion-card-header>

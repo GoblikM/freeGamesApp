@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="warning">
     <ion-title>Favourite games</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
-        <ion-text color="warning">Close</ion-text>
+        <ion-text color="light">Close</ion-text>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -11,9 +11,15 @@
 
 <ion-content>
   <ion-list *ngFor="let game of favouriteGames">
-    <ion-item>
+    <ion-item button (click)="dismiss()" [routerLink]="['games/'+ game.id]">
+      <ion-avatar slot="start">
+        <ion-img [src]="game.thumbnail"></ion-img>
+      </ion-avatar>
         {{game.title}}
     </ion-item>
   </ion-list>
 
 </ion-content>
+<ion-footer>
+  <ion-button color="warning" expand="full" (click)="deleteFavourites()"><ion-title color="danger">Delete List</ion-title></ion-button>
+</ion-footer>

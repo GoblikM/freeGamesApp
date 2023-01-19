@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+
   <ion-card *ngIf="game">
     <ion-slides paginationType="bullets" slidesPerView="1" pager="true" [options]="slideOptions">
       <ion-slide *ngFor="let img of game.screenshots">
@@ -114,7 +115,7 @@
       </ion-card-content>
       </ion-card>
     </ion-content>
-    <ion-footer>
+    <ion-footer >
       <ion-button color="warning" expand="full" (click)="openHomepage()">Visit site</ion-button>
     </ion-footer>
 

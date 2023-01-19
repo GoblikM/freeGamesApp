@@ -27,6 +27,12 @@ export class FavouritesPage implements OnInit {
     });
   }
 
+  deleteFavourites(){
+    this.storageService.deleteData();
+    this.dismiss();
+
+  }
+
 
 
   /**

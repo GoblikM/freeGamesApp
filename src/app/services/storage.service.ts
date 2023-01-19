@@ -36,6 +36,10 @@ export class StorageService {
     }
   }
 
+  async deleteData(){
+    await Preferences.clear()
+  }
+
 
   }
 
