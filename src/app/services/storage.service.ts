@@ -1,5 +1,6 @@
+import { Observable } from 'rxjs';
 import {Injectable} from '@angular/core';
-import {Preferences} from '@capacitor/preferences';
+import { Preferences, KeysResult } from '@capacitor/preferences';
 
 @Injectable({
   providedIn: 'root'
@@ -35,4 +36,7 @@ export class StorageService {
     }
   }
 
-}
+
+  }
+
+

@@ -1,7 +1,8 @@
+import { FavouritesPage } from './../favourites/favourites.page';
 import { Observable } from 'rxjs';
 import { Game, GamesService } from './../../services/games.service';
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 
 
@@ -13,12 +14,37 @@ import { StorageService } from 'src/app/services/storage.service';
 export class GamesPage implements OnInit {
 
   games: any[] = [];
+  favourites: any[] = [];
 
   //injecting gamesService, LoadingCotroller, AlertController
-  constructor(private gamesService: GamesService, private loadingController: LoadingController, private alertController: AlertController, private storageService: StorageService) { }
+  constructor(
+    private gamesService: GamesService,
+    private loadingController: LoadingController,
+    private alertController: AlertController,
+    private storageService: StorageService,
+    private modalController: ModalController
+    )
+    { }
 
   ngOnInit() {
     this.initGames();
+  }
+
+   /**
+   * Click event
+   */
+   openFavourites() {
+    this.openModal();
+  }
+
+  /**
+   * Open Ionic modal
+   */
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: FavouritesPage,
+    });
+    modal.present();
   }
 
   /**
@@ -43,13 +69,25 @@ export class GamesPage implements OnInit {
   }
 
   async addToFavorites(game : any){
-    this.storageService.saveData(game.id, game);
-    const alert = await this.alertController.create({
-      header: 'Success',
-      subHeader: 'Game added to favourites',
-      buttons: ['OK'],
-    });
-    await alert.present();
+    let stored = this.favourites.some(item => item.id === game.id);
+    if(!stored){
+      this.favourites.push(game);
+      this.storageService.saveData('favourites', this.favourites);
+       const alert = await this.alertController.create({
+         header: 'Success',
+         subHeader: 'Game added to favourites',
+         buttons: ['OK'],
+       });
+       await alert.present();
+    }
+    else{
+      const alert = await this.alertController.create({
+        header: 'Warning',
+        subHeader: 'Game already added to favourites!',
+        buttons: ['OK'],
+      });
+      await alert.present();
+    }
     console.log(this.storageService.getData('favorites'));
 
 }
