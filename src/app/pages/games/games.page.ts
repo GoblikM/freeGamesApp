@@ -1,7 +1,9 @@
 import { Observable } from 'rxjs';
 import { Game, GamesService } from './../../services/games.service';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { StorageService } from 'src/app/services/storage.service';
+
 
 @Component({
   selector: 'app-games',
@@ -10,30 +12,46 @@ import { LoadingController } from '@ionic/angular';
 })
 export class GamesPage implements OnInit {
 
-  games: any[]=[];
+  games: any[] = [];
 
-  //injecting gamesService
-  constructor(private gamesService: GamesService, private loadingCtlr: LoadingController) { }
+  //injecting gamesService, LoadingCotroller, AlertController
+  constructor(private gamesService: GamesService, private loadingController: LoadingController, private alertController: AlertController, private storageService: StorageService) { }
 
   ngOnInit() {
     this.initGames();
   }
 
+  /**
+   * Initializing all games
+   */
   async initGames(){
 
-    const loading = await this.loadingCtlr.create({
+    //setup loading circle
+    const loading = await this.loadingController.create({
       message: 'Loading games...',
+      duration:4000,
       spinner: 'crescent',
       backdropDismiss:false,
-      translucent:true
 
     })
     await loading.present();
 
     this.gamesService.getGames().subscribe(res =>{
-      loading.dismiss();
       this.games.push(res);
+      loading.dismiss();
     });
   }
 
+  async addToFavorites(game : any){
+    this.storageService.saveData(game.id, game);
+    const alert = await this.alertController.create({
+      header: 'Success',
+      subHeader: 'Game added to favourites',
+      buttons: ['OK'],
+    });
+    await alert.present();
+    console.log(this.storageService.getData('favorites'));
+
 }
+}
+

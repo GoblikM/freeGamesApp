@@ -8,14 +8,23 @@
 </ion-header>
 
 <ion-content>
-      <ion-card color="light" button *ngFor="let item of games[0]" [routerLink]="[item.id]">
-        <ion-img [src]="item.thumbnail"></ion-img>
+      <ion-card color="light"  *ngFor="let game of games[0]">
+        <ion-img button [src]="game.thumbnail" [routerLink]="[game.id]"></ion-img>
         <ion-card-header>
-          <ion-card-title> {{item.title}} ({{item.release_date | date:'y'}}) </ion-card-title>
-          <ion-card-subtitle><ion-text color="warning">{{item.platform}}</ion-text></ion-card-subtitle>
+          <ion-row>
+            <ion-col>
+              <ion-card-title>
+                {{game.title}} ({{game.release_date | date:'y'}})
+              </ion-card-title>
+              <ion-card-subtitle><ion-text color="warning">{{game.platform}}</ion-text></ion-card-subtitle>
+            </ion-col>
+            <ion-button shape="round" color="warning" (click)="addToFavorites(game)">
+              <ion-icon color="danger" name="heart"></ion-icon>
+            </ion-button>
+          </ion-row>
         </ion-card-header>
         <ion-card-content>
-          {{item.short_description}}
+          {{game.short_description}}
         </ion-card-content>
       </ion-card>
 </ion-content>
