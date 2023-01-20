@@ -1,8 +1,8 @@
 import { FavouritesPage } from './../favourites/favourites.page';
 import { Observable } from 'rxjs';
 import { Game, GamesService } from './../../services/games.service';
-import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AlertController, IonContent, LoadingController, ModalController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 
 
@@ -13,8 +13,15 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class GamesPage implements OnInit {
 
+  @ViewChild(IonContent, { static: false })
+  content!: IonContent;
+  //all games arr
   games: any[] = [];
   favourites: any[] = [];
+  //games to display
+  displayedGames: any[] =[];
+  //limit for loding games
+  limit = 10;
 
   //injecting gamesService, LoadingCotroller, AlertController
   constructor(
@@ -30,12 +37,20 @@ export class GamesPage implements OnInit {
     this.initGames();
   }
 
+  /**
+   * Getting value from ion-select tag
+   * @param event ionChange event after selectin genre
+   */
   genreSelect(event:any){
     console.log(event.detail.value);
     let genre = event.detail.value;
     this.games = [];
     this.initGames(genre);
 
+  }
+
+  scrollToTop(){
+    this.content.scrollToTop();
   }
 
    /**
@@ -46,7 +61,7 @@ export class GamesPage implements OnInit {
   }
 
   /**
-   * Open Ionic modal
+   * Open Ionic modal - favourite games
    */
   async openModal() {
     const modal = await this.modalController.create({
@@ -63,7 +78,6 @@ export class GamesPage implements OnInit {
     //setup loading circle
     const loading = await this.loadingController.create({
       message: 'Loading games...',
-      duration:4000,
       spinner: 'crescent',
       backdropDismiss:false,
 
@@ -71,11 +85,27 @@ export class GamesPage implements OnInit {
     await loading.present();
 
     this.gamesService.getGames(genre).subscribe(res =>{
-      this.games.push(res);
+      this.games.push(res); //getting all games to arr
+      this.displayedGames[0] = this.games[0].slice(0, this.limit); //getting limited amount of games to arr
+      loading.dismiss()
 
     });
   }
 
+  /**
+   * Handling loading more games after scrolling
+   * @param event onInfinite Scroll event
+   */
+  loadMore(event:any) {
+    this.displayedGames[0] = this.displayedGames[0].concat(this.games[0].
+      slice(this.displayedGames[0].length, this.displayedGames[0].length + this.limit)); //adding 10 more games to display
+    event.target.complete();
+}
+
+/**
+ * Adding game to favourite, storing data to local storage
+ * @param game selected game
+ */
   async addToFavorites(game : any){
     let stored;
     await this.storageService.getData('favourites').then(res=>{
@@ -84,6 +114,7 @@ export class GamesPage implements OnInit {
     if(this.favourites == undefined){
       this.favourites = [];
     }
+    //check if game not in favourites
     stored = this.favourites.some(item => item.id === game.id);
     if(!stored){
       this.favourites.push(game);
