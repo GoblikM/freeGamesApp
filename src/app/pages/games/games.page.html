@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
   <ion-list>
     <ion-item>
       <ion-select (ionChange)="genreSelect($event)" interface="popover" placeholder="Select Category">

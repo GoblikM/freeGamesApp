@@ -38,6 +38,23 @@ export class GamesPage implements OnInit {
   }
 
   /**
+   * handling search bar
+   * @param event
+   * @returns
+   */
+  search(event:any){
+    console.log(event);
+    let searchTerm = event.target.value;
+    if (searchTerm.trim() === '') {
+      this.displayedGames[0] = this.games[0].slice(0, this.limit);;
+      return;
+    }
+
+    this.displayedGames[0] = this.games[0].filter((game:any) => game.title.toLowerCase().includes(searchTerm.toLowerCase()));
+  }
+
+
+  /**
    * Getting value from ion-select tag
    * @param event ionChange event after selectin genre
    */
