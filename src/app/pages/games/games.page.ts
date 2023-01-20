@@ -22,6 +22,7 @@ export class GamesPage implements OnInit {
   displayedGames: any[] =[];
   //limit for loding games
   limit = 10;
+  searching:boolean = false;
 
   //injecting gamesService, LoadingCotroller, AlertController
   constructor(
@@ -42,15 +43,17 @@ export class GamesPage implements OnInit {
    * @param event
    * @returns
    */
-  search(event:any){
-    console.log(event);
+  async search(event:any){
+    console.log(event.target.value);
+    this.searching = true;
     let searchTerm = event.target.value;
     if (searchTerm.trim() === '') {
       this.displayedGames[0] = this.games[0].slice(0, this.limit);;
       return;
     }
-
-    this.displayedGames[0] = this.games[0].filter((game:any) => game.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    this.displayedGames = [];
+     this.displayedGames[0] = this.games[0].filter((game:any) => game.title.toLowerCase().includes(searchTerm.toLowerCase()))
+     console.log(this.displayedGames);
   }
 
 
@@ -114,6 +117,7 @@ export class GamesPage implements OnInit {
    * @param event onInfinite Scroll event
    */
   loadMore(event:any) {
+    console.log(event);
     this.displayedGames[0] = this.displayedGames[0].concat(this.games[0].
       slice(this.displayedGames[0].length, this.displayedGames[0].length + this.limit)); //adding 10 more games to display
     event.target.complete();

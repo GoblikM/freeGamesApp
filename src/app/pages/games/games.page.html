@@ -41,7 +41,7 @@
           {{game.short_description}}
         </ion-card-content>
       </ion-card>
-      <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll *ngIf="!searching" (ionInfinite)="loadMore($event)">
         <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more games...">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
