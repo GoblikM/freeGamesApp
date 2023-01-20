@@ -24,6 +24,7 @@ export class GameDetailsPage implements OnInit {
 
 
   ngOnInit() {
+    //getting details of specific game
     const id = this.route.snapshot.paramMap.get('id');
     this.gamesService.getGameDetails(id).subscribe(res =>{
       console.log(res);
@@ -31,6 +32,7 @@ export class GameDetailsPage implements OnInit {
     });
   }
 
+  //open browser with specific url
   openHomepage(){
     window.open(this.game.game_url);
   }

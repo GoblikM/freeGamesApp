@@ -21,6 +21,9 @@ export class FavouritesPage implements OnInit {
     this.initFavouriteGames();
   }
 
+  /**
+   * Getting data from local storage
+   */
   async initFavouriteGames(){
     this.storageService.getData('favourites').then(res =>{
         this.favouriteGames = res;
