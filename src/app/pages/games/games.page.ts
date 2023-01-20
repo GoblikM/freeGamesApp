@@ -48,7 +48,8 @@ export class GamesPage implements OnInit {
     this.searching = true;
     let searchTerm = event.target.value;
     if (searchTerm.trim() === '') {
-      this.displayedGames[0] = this.games[0].slice(0, this.limit);;
+      this.displayedGames[0] = this.games[0].slice(0, this.limit);
+      this.searching = false;
       return;
     }
     this.displayedGames = [];
@@ -94,6 +95,7 @@ export class GamesPage implements OnInit {
    * Initializing all games
    */
   async initGames(genre?:string){
+    this.searching = false;
 
     //setup loading circle
     const loading = await this.loadingController.create({
